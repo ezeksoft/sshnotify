@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
         string readme = data["readme"];
 
         string subject = "Login as " + user + "!";
-        string message = "Location: " + city + "/" + region + " - " + country + " CEP " + postal + "<br>" +
+        string message = "Location: " + city + "/" + region + " - " + country + " Zipcode " + postal + "<br>" +
             "Timezone: " + timezone + "<br>" +
             "Coords: " + loc + "<br>" +
             "Reverse IP: " + hostname + "<br>" +

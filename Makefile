@@ -53,12 +53,12 @@ install:
 	mkdir -p /etc/sshnotify
 	cp ./bin/main /etc/sshnotify
 	cp -n ./src/.env.example /etc/sshnotify/.env
-	/bin/bash -c 'echo "* * * * * /etc/sshnotify/main env /etc/sshnotify/.env" >> /etc/crontab'
-	/bin/bash -c 'echo "* * * * * sleep 10; /etc/sshnotify/main env /etc/sshnotify/.env" >> /etc/crontab'
-	/bin/bash -c 'echo "* * * * * sleep 20; /etc/sshnotify/main env /etc/sshnotify/.env" >> /etc/crontab'
-	/bin/bash -c 'echo "* * * * * sleep 30; /etc/sshnotify/main env /etc/sshnotify/.env" >> /etc/crontab'
-	/bin/bash -c 'echo "* * * * * sleep 40; /etc/sshnotify/main env /etc/sshnotify/.env" >> /etc/crontab'
-	/bin/bash -c 'echo "* * * * * sleep 50; /etc/sshnotify/main env /etc/sshnotify/.env" >> /etc/crontab'
+	(crontab -l ; echo "* * * * * /etc/sshnotify/main env /etc/sshnotify/.env") | crontab -
+	(crontab -l ; echo "* * * * * sleep 10; /etc/sshnotify/main env /etc/sshnotify/.env") | crontab -
+	(crontab -l ; echo "* * * * * sleep 20; /etc/sshnotify/main env /etc/sshnotify/.env") | crontab -
+	(crontab -l ; echo "* * * * * sleep 30; /etc/sshnotify/main env /etc/sshnotify/.env") | crontab -
+	(crontab -l ; echo "* * * * * sleep 40; /etc/sshnotify/main env /etc/sshnotify/.env") | crontab -
+	(crontab -l ; echo "* * * * * sleep 50; /etc/sshnotify/main env /etc/sshnotify/.env") | crontab -
 	rm -rf /usr/bin/sshnotify
 	ln -s /etc/sshnotify/main /usr/bin/sshnotify
 
