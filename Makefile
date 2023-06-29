@@ -16,11 +16,13 @@ append:
 env:
 	cp ./src/.env /etc/sshnotify/.env
 
-centos:
+centos_start:
 	cd /etc/yum.repos.d/;
 	sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*;
 	sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*;
 	yum update -y;
+
+centos:
 	yum -y install libcurl-devel
 
 centos_dev:
@@ -33,9 +35,11 @@ centos_dev:
 	/bin/bash brew.sh
 	brew install nlohmann-json
 
-debian:
+debian_start:
 	apt update
 	apt upgrade
+
+debian:
 	apt -y install libcurl4-openssl-dev
 
 debian_dev:

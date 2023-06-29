@@ -9,7 +9,7 @@ yum -y install make
 
 Debian:
 ```bash
-apt install make
+apt -y install make
 ```
 
 ##### Setup
