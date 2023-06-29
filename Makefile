@@ -65,6 +65,7 @@ install:
 	(crontab -l ; echo "* * * * * sleep 50; /etc/sshnotify/main env /etc/sshnotify/.env") | crontab -
 	rm -rf /usr/bin/sshnotify
 	ln -s /etc/sshnotify/main /usr/bin/sshnotify
+	chmod +x /etc/sshnotify/main
 
 docker_centos:
 	docker run --name SSHNotify -d -t -i --mount type=bind,source=C:/www/github/sshnotify,target=/home/eze -it centos
