@@ -62,11 +62,6 @@ int main(int argc, char *argv[])
         string date = aux[0] + " " + aux[1] + " " + aux[2];
         
         string response = request.get("https://ipinfo.io/" + _ip);
-        // if (response.empty()) 
-        // {
-        //     cout << "Um erro";
-        //     return 0;
-        // }
         json data = json::parse(response);
 
         string ip = data["ip"];
