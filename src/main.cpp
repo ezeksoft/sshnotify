@@ -51,7 +51,12 @@ int main(int argc, char *argv[])
     {
         file.write(env(e, "AUTHLOG_DB"), join(sysrows, "\n"));
 
-        vector<string> aux = split(sys_lastrow, ' ');
+        vector<string> aux0 = split(sys_lastrow, ' ');
+        vector<string> aux;
+        for (string aux1 : aux0)
+        {
+            if (!aux1.empty()) aux.push_back(aux1);
+        }
 
         string user = aux[8];
         string _ip = aux[10];
@@ -61,19 +66,21 @@ int main(int argc, char *argv[])
         string company = aux[3];
         string date = aux[0] + " " + aux[1] + " " + aux[2];
         
+        cout << "IP: " << _ip << endl;
         string response = request.get("https://ipinfo.io/" + _ip);
+        cout << response;
         json data = json::parse(response);
 
-        string ip = data.contains("ip") ? data["ip"] : "";
-        string hostname = data.contains("hostname") ? data["hostname"] : "";
-        string city = data.contains("city") ? data["city"] : "";
-        string region = data.contains("region") ? data["region"] : "";
-        string country = data.contains("country") ? data["country"] : "";
-        string loc = data.contains("loc") ? data["loc"] : "";
-        string org = data.contains("org") ? data["org"] : "";
-        string postal = data.contains("postal") ? data["postal"] : "";
-        string timezone = data.contains("timezone") ? data["timezone"] : "";
-        string readme = data.contains("readme") ? data["readme"] : "";
+        string ip = data["ip"];
+        string hostname = data["hostname"];
+        string city = data["city"];
+        string region = data["region"];
+        string country = data["country"];
+        string loc = data["loc"];
+        string org = data["org"];
+        string postal = data["postal"];
+        string timezone = data["timezone"];
+        string readme = data["readme"];
 
         string subject = "Login as " + user + "!";
         string message = "Location: " + city + "/" + region + " - " + country + " Zipcode " + postal + "<br>" +
