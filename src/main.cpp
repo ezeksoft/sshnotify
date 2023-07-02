@@ -64,16 +64,16 @@ int main(int argc, char *argv[])
         string response = request.get("https://ipinfo.io/" + _ip);
         json data = json::parse(response);
 
-        string ip = data["ip"];
-        string hostname = data["hostname"];
-        string city = data["city"];
-        string region = data["region"];
-        string country = data["country"];
-        string loc = data["loc"];
-        string org = data["org"];
-        string postal = data["postal"];
-        string timezone = data["timezone"];
-        string readme = data["readme"];
+        string ip = data.contains("ip") ? data["ip"] : "";
+        string hostname = data.contains("hostname") ? data["hostname"] : "";
+        string city = data.contains("city") ? data["city"] : "";
+        string region = data.contains("region") ? data["region"] : "";
+        string country = data.contains("country") ? data["country"] : "";
+        string loc = data.contains("loc") ? data["loc"] : "";
+        string org = data.contains("org") ? data["org"] : "";
+        string postal = data.contains("postal") ? data["postal"] : "";
+        string timezone = data.contains("timezone") ? data["timezone"] : "";
+        string readme = data.contains("readme") ? data["readme"] : "";
 
         string subject = "Login as " + user + "!";
         string message = "Location: " + city + "/" + region + " - " + country + " Zipcode " + postal + "<br>" +
