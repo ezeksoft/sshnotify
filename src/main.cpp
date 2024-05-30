@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     vector<string> e;
     bool readenv = false;
     string envpath;
-   
+
     for (int i = 1; i < argc; i++)
     {
         string flag = argv[i];
@@ -42,13 +42,27 @@ int main(int argc, char *argv[])
 
     vector<string> rows = file.read(env(e, "AUTHLOG_DB"));
     vector<string> sysrows = file.read(env(e, "AUTHLOG"));
+    vector<string> x = {"Accepted password for", "Accepted publickey for"};
+    bool send = false;
+    string lastrow;
+    string sys_lastrow;
 
-    string search = "Accepted password for";
-    string lastrow = array_ends_with(rows, search);
-    string sys_lastrow = array_ends_with(sysrows, search);
-
-    if (lastrow != sys_lastrow)
+    for (int i = 0; i < x.size(); i++)
     {
+        string search = x[i];
+        string lr = array_ends_with(rows, search);
+        string slr = array_ends_with(sysrows, search);
+        if (lr != slr) 
+        {
+            lastrow = lr;
+            sys_lastrow = slr;
+            send = true;
+        }
+    }
+
+    if (send)
+    {
+        cout << "New session.\n";
         file.write(env(e, "AUTHLOG_DB"), join(sysrows, "\n"));
 
         vector<string> aux0 = split(sys_lastrow, ' ');
@@ -109,6 +123,7 @@ int main(int argc, char *argv[])
         for (string _email : emaillist)
             email.send(smtp_from, _email, smtp_yourname, subject, message);
     }
+    else cout << "Nothing.\n";
 
     return 1;
 }
